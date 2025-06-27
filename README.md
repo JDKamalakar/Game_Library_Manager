@@ -64,6 +64,7 @@ Bash
 npm start
 # or
 yarn start
+
 This will open the application in your browser, usually at http://localhost:3000.
 
 🖥️ Usage
