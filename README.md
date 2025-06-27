@@ -54,6 +54,7 @@ Bash
 npm install
 # or
 yarn install
+
 Set up Supabase:
 This application uses Supabase for its backend. For local development, you need to:
 
