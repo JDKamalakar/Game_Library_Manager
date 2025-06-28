@@ -46,7 +46,7 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
   ];
 
   return (
-    <div className="gamer-blur-medium border-b border-gray-700/50 sticky top-0 z-10">
+    <div className="blur-medium border-b border-color sticky top-0 z-10">
       <div className="p-6">
         <div className="max-w-7xl mx-auto">
           {/* Header Title and Stats */}
@@ -57,8 +57,8 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
             transition={{ duration: 0.5 }}
           >
             <div>
-              <h1 className="text-3xl font-bold gamer-text-gradient mb-2">Game Library</h1>
-              <p className="text-on-surface-variant">
+              <h1 className="text-3xl font-bold text-gradient mb-2">Game Library</h1>
+              <p className="text-secondary">
                 {filteredGames} of {totalGames} games
                 {filter.search && ` matching "${filter.search}"`}
               </p>
@@ -69,10 +69,10 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
               <button
                 onClick={onSyncLibrary}
                 disabled={isLoading}
-                className="gamer-btn gamer-btn-primary"
+                className="btn btn-primary"
               >
                 {isLoading ? (
-                  <div className="gamer-spinner mr-2" />
+                  <div className="spinner mr-2" />
                 ) : (
                   <Download size={16} className="mr-2" />
                 )}
@@ -80,13 +80,13 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
               </button>
 
               {/* View Mode Toggle */}
-              <div className="flex items-center space-x-1 bg-gray-800/50 rounded-lg p-1">
+              <div className="flex items-center space-x-1 bg-tertiary rounded-lg p-1">
                 <button
                   onClick={() => onViewModeChange({ ...viewMode, type: 'grid' })}
                   className={`p-2 rounded-md transition-colors ${
                     viewMode.type === 'grid' 
-                      ? 'bg-blue-500 text-white' 
-                      : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                      ? 'bg-primary text-inverse' 
+                      : 'text-secondary hover:text-primary hover:bg-elevated'
                   }`}
                 >
                   <Grid size={16} />
@@ -95,8 +95,8 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
                   onClick={() => onViewModeChange({ ...viewMode, type: 'list' })}
                   className={`p-2 rounded-md transition-colors ${
                     viewMode.type === 'list' 
-                      ? 'bg-blue-500 text-white' 
-                      : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                      ? 'bg-primary text-inverse' 
+                      : 'text-secondary hover:text-primary hover:bg-elevated'
                   }`}
                 >
                   <List size={16} />
@@ -114,11 +114,11 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
           >
             {/* Search */}
             <div className="lg:col-span-2 relative">
-              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary" />
               <input
                 type="text"
                 placeholder="Search games..."
-                className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-colors text-white placeholder-gray-400"
+                className="w-full pl-10 pr-4 py-3 bg-elevated border border-color rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors text-primary placeholder-secondary"
                 value={filter.search}
                 onChange={(e) => onFilterChange({ search: e.target.value })}
               />
@@ -126,7 +126,7 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
             
             {/* Platform Filter */}
             <select
-              className="px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-colors text-white"
+              className="px-4 py-3 bg-elevated border border-color rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors text-primary"
               value={filter.platforms[0] || ''}
               onChange={(e) => onFilterChange({
                 platforms: e.target.value ? [e.target.value] : []
@@ -142,7 +142,7 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
             
             {/* Install Status Filter */}
             <select
-              className="px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-colors text-white"
+              className="px-4 py-3 bg-elevated border border-color rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors text-primary"
               value={filter.installed === undefined ? '' : filter.installed.toString()}
               onChange={(e) => onFilterChange({
                 installed: e.target.value === '' ? undefined : e.target.value === 'true'
@@ -155,7 +155,7 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
             
             {/* Sort */}
             <select
-              className="px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-colors text-white"
+              className="px-4 py-3 bg-elevated border border-color rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors text-primary"
               value={`${filter.sortBy}-${filter.sortOrder}`}
               onChange={(e) => {
                 const [sortBy, sortOrder] = e.target.value.split('-');
@@ -174,7 +174,7 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
             
             {/* Group By */}
             <select
-              className="px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-colors text-white"
+              className="px-4 py-3 bg-elevated border border-color rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors text-primary"
               value={filter.groupBy || 'none'}
               onChange={(e) => onFilterChange({
                 groupBy: e.target.value === 'none' ? undefined : e.target.value as any
@@ -200,7 +200,7 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
               className={`px-3 py-1 rounded-full text-sm transition-colors ${
                 filter.installed === true
                   ? 'bg-green-500 text-white'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  : 'bg-tertiary text-secondary hover:bg-elevated'
               }`}
             >
               <Play size={12} className="inline mr-1" />
@@ -212,7 +212,7 @@ export const LibraryHeader: React.FC<LibraryHeaderProps> = ({
               className={`px-3 py-1 rounded-full text-sm transition-colors ${
                 filter.downloading === true
                   ? 'bg-blue-500 text-white'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  : 'bg-tertiary text-secondary hover:bg-elevated'
               }`}
             >
               <Download size={12} className="inline mr-1" />

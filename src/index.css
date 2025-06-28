@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './styles/material-theme.css';
 @import './styles/gamer-theme.css';
 
 /* Global CSS Custom Properties for Tailwind */
@@ -19,57 +18,50 @@
 /* Custom Tailwind Components */
 @layer components {
   .text-on-surface {
-    color: var(--gamer-text-primary);
+    color: var(--text-primary);
   }
   
   .text-on-surface-variant {
-    color: var(--gamer-text-secondary);
+    color: var(--text-secondary);
   }
   
   .surface-container {
-    background-color: var(--gamer-bg-elevated);
+    background-color: var(--bg-elevated);
   }
   
   .surface-container-high {
-    background-color: var(--gamer-bg-secondary);
+    background-color: var(--bg-secondary);
   }
   
   .primary {
-    background-color: var(--gamer-primary);
-    color: var(--gamer-text-inverse);
+    background-color: var(--primary);
+    color: var(--text-inverse);
   }
   
   .primary-container {
-    background: linear-gradient(135deg, var(--gamer-primary), var(--gamer-primary-dark));
-    color: var(--gamer-text-inverse);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--text-inverse);
   }
   
   .elevation-1 {
-    box-shadow: var(--gamer-shadow-sm);
+    box-shadow: var(--shadow-sm);
   }
   
   .elevation-2 {
-    box-shadow: var(--gamer-shadow-md);
+    box-shadow: var(--shadow-md);
   }
   
   .elevation-3 {
-    box-shadow: var(--gamer-shadow-lg);
+    box-shadow: var(--shadow-lg);
   }
   
   .elevation-4 {
-    box-shadow: var(--gamer-shadow-xl);
+    box-shadow: var(--shadow-xl);
   }
   
   .blur-overlay {
-    backdrop-filter: var(--gamer-blur-medium);
-    -webkit-backdrop-filter: var(--gamer-blur-medium);
-    background-color: var(--gamer-bg-overlay);
+    backdrop-filter: var(--blur-medium);
+    -webkit-backdrop-filter: var(--blur-medium);
+    background-color: var(--bg-overlay);
   }
-}
-
-/* Gamepad icon fix */
-.gamepad-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
 }

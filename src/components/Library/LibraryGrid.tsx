@@ -81,9 +81,9 @@ export const LibraryGrid: React.FC<LibraryGridProps> = ({
     return (
       <div className="flex items-center justify-center py-20">
         <div className="text-center">
-          <div className="gamer-spinner mx-auto mb-4" style={{ width: '48px', height: '48px' }} />
-          <h3 className="text-xl font-semibold text-white mb-2">Loading Library</h3>
-          <p className="text-gray-400">Fetching your games...</p>
+          <div className="spinner mx-auto mb-4" style={{ width: '48px', height: '48px' }} />
+          <h3 className="text-xl font-semibold text-primary mb-2">Loading Library</h3>
+          <p className="text-secondary">Fetching your games...</p>
         </div>
       </div>
     );
@@ -97,9 +97,9 @@ export const LibraryGrid: React.FC<LibraryGridProps> = ({
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <Gamepad2 size={64} className="mx-auto mb-4 text-gray-400 opacity-50" />
-        <h3 className="text-xl font-semibold text-white mb-2">No games found</h3>
-        <p className="text-gray-400">Try adjusting your filters or search terms.</p>
+        <Gamepad2 size={64} className="mx-auto mb-4 text-secondary opacity-50" />
+        <h3 className="text-xl font-semibold text-primary mb-2">No games found</h3>
+        <p className="text-secondary">Try adjusting your filters or search terms.</p>
       </motion.div>
     );
   }
@@ -115,9 +115,9 @@ export const LibraryGrid: React.FC<LibraryGridProps> = ({
         >
           {groupBy && groupBy !== 'none' && (
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-white mb-2">{groupName}</h2>
+              <h2 className="text-2xl font-bold text-primary mb-2">{groupName}</h2>
               <div className="h-px bg-gradient-to-r from-blue-500 to-purple-500 w-24"></div>
-              <p className="text-sm text-gray-400 mt-2">
+              <p className="text-sm text-secondary mt-2">
                 {groupGames.length} game{groupGames.length !== 1 ? 's' : ''}
               </p>
             </div>

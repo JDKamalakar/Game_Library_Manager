@@ -20,9 +20,7 @@ export const Card: React.FC<CardProps> = ({
   
   return (
     <Component
-      className={`surface-container rounded-xl p-4 elevation-${elevation} ${
-        interactive ? 'cursor-pointer' : ''
-      } ${className}`}
+      className={`card ${interactive ? 'card-interactive' : ''} ${className}`}
       onClick={onClick}
       {...(interactive && {
         whileHover: { scale: 1.02, y: -2 },

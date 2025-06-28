@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Gamepad2, BarChart3, Settings, Monitor, Smartphone, HardDrive, Zap, ChevronDown, ChevronRight } from 'lucide-react';
+import { Home, Gamepad2, BarChart3, Settings, Monitor, Smartphone, HardDrive, Zap, ChevronRight } from 'lucide-react';
 import { getAllDemoGames } from '../../data/demoGames';
 
 interface NavigationRailProps {
@@ -45,7 +45,7 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
   };
 
   const getGamesByPlatform = (platform: string) => {
-    return allGames.filter(game => game.platform === platform).slice(0, 8); // Limit to 8 games per platform
+    return allGames.filter(game => game.platform === platform).slice(0, 8);
   };
 
   const handleGameClick = (gameId: string) => {
@@ -55,16 +55,16 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
 
   return (
     <motion.div
-      className="gamer-nav-rail h-full flex flex-col gamer-blur-medium"
+      className="nav-rail h-full flex flex-col blur-medium"
       animate={{ width: collapsed ? 80 : 320 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       {/* Header */}
-      <div className="p-4 border-b border-gray-700/50">
+      <div className="p-4 border-b border-color">
         <div className="flex items-center justify-between">
           {!collapsed && (
             <motion.h1
-              className="text-xl font-bold gamer-text-gradient"
+              className="text-xl font-bold text-gradient"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
@@ -74,13 +74,13 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
           )}
           <button
             onClick={onToggleCollapse}
-            className="p-2 rounded-full hover:bg-gray-700/50 transition-colors"
+            className="p-2 rounded-full hover:bg-tertiary transition-colors"
           >
             <motion.div
               animate={{ rotate: collapsed ? 0 : 180 }}
               transition={{ duration: 0.3 }}
             >
-              <Gamepad2 size={20} className="text-blue-400" />
+              <Gamepad2 size={20} className="text-primary" />
             </motion.div>
           </button>
         </div>
@@ -91,7 +91,7 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
         <div className="px-2">
           {!collapsed && (
             <motion.h2
-              className="px-4 py-2 text-sm font-medium text-gray-400 uppercase tracking-wider"
+              className="px-4 py-2 text-sm font-medium text-secondary uppercase tracking-wider"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -117,7 +117,7 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
         <div className="px-2 mt-8">
           {!collapsed && (
             <motion.h2
-              className="px-4 py-2 text-sm font-medium text-gray-400 uppercase tracking-wider"
+              className="px-4 py-2 text-sm font-medium text-secondary uppercase tracking-wider"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -132,9 +132,9 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
               const isExpanded = expandedPlatforms.includes(platform.id);
               
               return (
-                <div key={platform.id} className="gamer-platform-section">
+                <div key={platform.id} className="platform-section">
                   <div
-                    className="gamer-platform-header"
+                    className="platform-header"
                     onClick={() => {
                       if (!collapsed) {
                         togglePlatform(platform.id);
@@ -167,7 +167,7 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
                     <AnimatePresence>
                       {isExpanded && platformGames.length > 0 && (
                         <motion.div
-                          className="gamer-platform-games"
+                          className="platform-games"
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -176,15 +176,15 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
                           {platformGames.map((game) => (
                             <div
                               key={game.id}
-                              className="gamer-platform-game"
+                              className="platform-game"
                               onClick={() => handleGameClick(game.id)}
                             >
-                              <div className="w-4 h-4 rounded bg-gray-600 mr-2 flex-shrink-0" />
+                              <div className="w-4 h-4 rounded bg-tertiary mr-2 flex-shrink-0" />
                               <span className="truncate">{game.name}</span>
                             </div>
                           ))}
                           {platformGames.length === 8 && (
-                            <div className="gamer-platform-game text-gray-500">
+                            <div className="platform-game text-tertiary">
                               <span className="text-xs">+ more games...</span>
                             </div>
                           )}
@@ -220,7 +220,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
 }) => {
   return (
     <motion.button
-      className={`gamer-nav-item w-full ${active ? 'active' : ''}`}
+      className={`nav-item ${active ? 'active' : ''}`}
       onClick={onClick}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}

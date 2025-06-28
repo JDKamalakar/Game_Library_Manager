@@ -45,13 +45,6 @@ export const GameCard: React.FC<GameCardProps> = ({
     return new Date(dateString).toLocaleDateString();
   };
 
-  const formatFileSize = (sizeInMB: number): string => {
-    if (sizeInMB >= 1000) {
-      return `${(sizeInMB / 1000).toFixed(1)} GB`;
-    }
-    return `${sizeInMB} MB`;
-  };
-
   const getPlatformIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
       case 'steam':
@@ -73,7 +66,7 @@ export const GameCard: React.FC<GameCardProps> = ({
     return (
       <motion.div
         ref={ref}
-        className="gamer-list-card"
+        className="list-card"
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.4, ease: "easeOut" }}
@@ -95,8 +88,8 @@ export const GameCard: React.FC<GameCardProps> = ({
             )}
             
             {(!imageLoaded || imageError) && (
-              <div className="w-full h-full bg-gray-700 flex items-center justify-center">
-                <Gamepad2 size={20} className="text-gray-400" />
+              <div className="w-full h-full bg-tertiary flex items-center justify-center">
+                <Gamepad2 size={20} className="text-secondary" />
               </div>
             )}
           </div>
@@ -104,14 +97,14 @@ export const GameCard: React.FC<GameCardProps> = ({
           {/* Game Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-1">
-              <h3 className="font-semibold text-on-surface truncate">{game.name}</h3>
-              <div className="flex items-center space-x-1 text-xs text-on-surface-variant">
+              <h3 className="font-semibold text-primary truncate">{game.name}</h3>
+              <div className="flex items-center space-x-1 text-xs text-secondary">
                 {getPlatformIcon(game.platform)}
                 <span className="capitalize">{game.platform}</span>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4 text-sm text-on-surface-variant">
+            <div className="flex items-center space-x-4 text-sm text-secondary">
               <div className="flex items-center space-x-1">
                 <Calendar size={14} />
                 <span>{formatDate(game.releaseDate)}</span>
@@ -134,13 +127,13 @@ export const GameCard: React.FC<GameCardProps> = ({
             {/* Download Progress */}
             {game.downloading && game.downloadProgress !== undefined && (
               <div className="mt-2">
-                <div className="flex items-center justify-between text-xs text-on-surface-variant mb-1">
+                <div className="flex items-center justify-between text-xs text-secondary mb-1">
                   <span>Downloading...</span>
                   <span>{game.downloadProgress}%</span>
                 </div>
-                <div className="gamer-progress">
+                <div className="progress">
                   <div 
-                    className="gamer-progress-bar" 
+                    className="progress-bar" 
                     style={{ width: `${game.downloadProgress}%` }}
                   />
                 </div>
@@ -156,7 +149,7 @@ export const GameCard: React.FC<GameCardProps> = ({
                   e.stopPropagation();
                   onLaunch?.(game);
                 }}
-                className="gamer-btn gamer-btn-primary px-4 py-2"
+                className="btn btn-primary px-4 py-2"
               >
                 <Play size={16} className="mr-1" />
                 Launch
@@ -167,7 +160,7 @@ export const GameCard: React.FC<GameCardProps> = ({
                   e.stopPropagation();
                   onInstall?.(game);
                 }}
-                className="gamer-btn gamer-btn-secondary px-4 py-2"
+                className="btn btn-secondary px-4 py-2"
                 disabled={game.downloading}
               >
                 <Download size={16} className="mr-1" />
@@ -183,7 +176,7 @@ export const GameCard: React.FC<GameCardProps> = ({
   return (
     <motion.div
       ref={ref}
-      className={`${sizeClasses[size]} gamer-game-card relative overflow-hidden`}
+      className={`${sizeClasses[size]} game-card relative overflow-hidden`}
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, ease: "easeOut" }}
@@ -207,8 +200,8 @@ export const GameCard: React.FC<GameCardProps> = ({
         
         {/* Fallback/Loading */}
         {(!imageLoaded || imageError) && (
-          <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-            <div className="text-center text-gray-400">
+          <div className="w-full h-full bg-tertiary flex items-center justify-center">
+            <div className="text-center text-secondary">
               <Gamepad2 size={32} className="mx-auto mb-2 opacity-50" />
               <p className="text-xs font-medium px-2">{game.name}</p>
             </div>
@@ -217,10 +210,10 @@ export const GameCard: React.FC<GameCardProps> = ({
 
         {/* Platform Badge */}
         <div className="absolute top-2 left-2">
-          <div className="gamer-blur-light px-2 py-1 rounded-full">
+          <div className="blur-light px-2 py-1 rounded-full">
             <div className="flex items-center space-x-1">
               {getPlatformIcon(game.platform)}
-              <span className="text-xs font-medium uppercase tracking-wide capitalize text-on-surface">
+              <span className="text-xs font-medium uppercase tracking-wide capitalize text-primary">
                 {game.platform}
               </span>
             </div>
@@ -239,17 +232,17 @@ export const GameCard: React.FC<GameCardProps> = ({
         {/* Download Progress */}
         {game.downloading && game.downloadProgress !== undefined && (
           <div className="absolute top-2 right-2">
-            <div className="gamer-blur-medium px-2 py-1 rounded-full">
+            <div className="blur-medium px-2 py-1 rounded-full">
               <div className="flex items-center space-x-1">
                 <Download size={12} />
-                <span className="text-xs font-medium text-on-surface">{game.downloadProgress}%</span>
+                <span className="text-xs font-medium text-primary">{game.downloadProgress}%</span>
               </div>
             </div>
           </div>
         )}
 
         {/* Hover Overlay with Game Info */}
-        <div className="gamer-game-card-overlay">
+        <div className="game-card-overlay">
           {/* Game Info */}
           <div className="text-white mb-3">
             <h3 className="font-bold text-sm mb-1 line-clamp-2">{game.name}</h3>
@@ -278,9 +271,9 @@ export const GameCard: React.FC<GameCardProps> = ({
           {/* Download Progress Bar */}
           {game.downloading && game.downloadProgress !== undefined && (
             <div className="mb-3">
-              <div className="gamer-progress">
+              <div className="progress">
                 <div 
-                  className="gamer-progress-bar" 
+                  className="progress-bar" 
                   style={{ width: `${game.downloadProgress}%` }}
                 />
               </div>
@@ -295,7 +288,7 @@ export const GameCard: React.FC<GameCardProps> = ({
                   e.stopPropagation();
                   onLaunch?.(game);
                 }}
-                className="flex-1 gamer-btn gamer-btn-primary py-2 text-sm"
+                className="flex-1 btn btn-primary py-2 text-sm"
               >
                 <Play size={14} className="mr-1" />
                 Launch
@@ -306,7 +299,7 @@ export const GameCard: React.FC<GameCardProps> = ({
                   e.stopPropagation();
                   onInstall?.(game);
                 }}
-                className="flex-1 gamer-btn gamer-btn-secondary py-2 text-sm"
+                className="flex-1 btn btn-secondary py-2 text-sm"
                 disabled={game.downloading}
               >
                 <Download size={14} className="mr-1" />
@@ -330,7 +323,7 @@ export const GameCard: React.FC<GameCardProps> = ({
       </div>
       
       {/* Game Title Below Card */}
-      <div className="gamer-game-title">
+      <div className="game-title">
         {game.name}
       </div>
     </motion.div>
