@@ -17,46 +17,17 @@
   --gamer-warning: #f59e0b;
   --gamer-error: #ef4444;
   
-  /* Light Theme */
-  --gamer-bg-primary: #ffffff;
-  --gamer-bg-secondary: #f8fafc;
-  --gamer-bg-tertiary: #f1f5f9;
-  --gamer-bg-elevated: #ffffff;
-  --gamer-bg-overlay: rgba(255, 255, 255, 0.95);
-  
-  --gamer-text-primary: #0f172a;
-  --gamer-text-secondary: #475569;
-  --gamer-text-tertiary: #64748b;
-  --gamer-text-inverse: #ffffff;
-  
-  --gamer-border: #e2e8f0;
-  --gamer-border-light: #f1f5f9;
-  --gamer-border-dark: #cbd5e1;
-  
-  --gamer-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --gamer-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --gamer-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --gamer-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  
-  /* Android 16 QPR1 Blur Effects */
-  --gamer-blur-light: blur(20px) saturate(180%) brightness(1.1);
-  --gamer-blur-medium: blur(40px) saturate(200%) brightness(1.05);
-  --gamer-blur-heavy: blur(60px) saturate(220%) brightness(1.02);
-  --gamer-blur-overlay: blur(80px) saturate(250%) brightness(0.98);
-}
-
-[data-theme="dark"] {
-  /* Dark Theme */
+  /* Dark Theme - Global Application */
   --gamer-bg-primary: #0a0a0a;
   --gamer-bg-secondary: #111111;
   --gamer-bg-tertiary: #1a1a1a;
   --gamer-bg-elevated: #1f1f1f;
   --gamer-bg-overlay: rgba(10, 10, 10, 0.95);
   
-  --gamer-text-primary: #ffffff;
-  --gamer-text-secondary: #a1a1aa;
-  --gamer-text-tertiary: #71717a;
-  --gamer-text-inverse: #0a0a0a;
+  --gamer-text-primary: #000000;
+  --gamer-text-secondary: #333333;
+  --gamer-text-tertiary: #666666;
+  --gamer-text-inverse: #ffffff;
   
   --gamer-border: #27272a;
   --gamer-border-light: #1f1f1f;
@@ -67,7 +38,7 @@
   --gamer-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
   --gamer-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
   
-  /* Enhanced blur for dark theme */
+  /* Android 16 QPR1 Blur Effects */
   --gamer-blur-light: blur(20px) saturate(180%) brightness(0.9);
   --gamer-blur-medium: blur(40px) saturate(200%) brightness(0.85);
   --gamer-blur-heavy: blur(60px) saturate(220%) brightness(0.8);
@@ -122,7 +93,7 @@ body {
 .gamer-card {
   background-color: var(--gamer-bg-elevated);
   border: 1px solid var(--gamer-border);
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: var(--gamer-shadow-md);
   transition: all 0.3s ease;
 }
@@ -201,13 +172,13 @@ body {
 
 .gamer-btn-ghost {
   background: transparent;
-  color: var(--gamer-text-secondary);
+  color: var(--gamer-text-inverse);
   border: 1px solid var(--gamer-border);
 }
 
 .gamer-btn-ghost:hover {
   background-color: var(--gamer-bg-tertiary);
-  color: var(--gamer-text-primary);
+  color: var(--gamer-text-inverse);
   border-color: var(--gamer-primary);
 }
 
@@ -224,7 +195,7 @@ body {
   padding: 0.75rem 1rem;
   margin: 0.25rem;
   border-radius: 8px;
-  color: var(--gamer-text-secondary);
+  color: var(--gamer-text-inverse);
   text-decoration: none;
   transition: all 0.2s ease;
   position: relative;
@@ -245,7 +216,7 @@ body {
 
 .gamer-nav-item:hover {
   background-color: var(--gamer-bg-tertiary);
-  color: var(--gamer-text-primary);
+  color: var(--gamer-text-inverse);
 }
 
 .gamer-nav-item.active {
@@ -258,13 +229,61 @@ body {
   transform: scaleY(1);
 }
 
+/* Platform Section */
+.gamer-platform-section {
+  margin-bottom: 1rem;
+}
+
+.gamer-platform-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: var(--gamer-bg-tertiary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--gamer-text-inverse);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.gamer-platform-header:hover {
+  background-color: var(--gamer-bg-elevated);
+}
+
+.gamer-platform-games {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--gamer-border);
+}
+
+.gamer-platform-game {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  margin: 0.25rem 0;
+  border-radius: 6px;
+  color: var(--gamer-text-inverse);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+}
+
+.gamer-platform-game:hover {
+  background-color: var(--gamer-bg-tertiary);
+  color: var(--gamer-primary);
+}
+
 /* Game Cards */
 .gamer-game-card {
   position: relative;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
+  background-color: var(--gamer-bg-elevated);
+  border: 1px solid var(--gamer-border);
 }
 
 .gamer-game-card::before {
@@ -285,8 +304,9 @@ body {
 }
 
 .gamer-game-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: var(--gamer-shadow-xl);
+  border-color: var(--gamer-primary);
 }
 
 .gamer-game-card-overlay {
@@ -303,6 +323,34 @@ body {
 
 .gamer-game-card:hover .gamer-game-card-overlay {
   transform: translateY(0);
+}
+
+.gamer-game-title {
+  color: var(--gamer-text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* List View Cards */
+.gamer-list-card {
+  background-color: var(--gamer-bg-elevated);
+  border: 1px solid var(--gamer-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.gamer-list-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--gamer-shadow-lg);
+  border-color: var(--gamer-primary);
+  background-color: var(--gamer-bg-tertiary);
 }
 
 /* Progress Bars */
@@ -398,7 +446,7 @@ body {
 .gamer-border-gradient {
   position: relative;
   background: var(--gamer-bg-elevated);
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .gamer-border-gradient::before {
@@ -431,11 +479,6 @@ body {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --gamer-border: #000000;
-    --gamer-text-secondary: #000000;
-  }
-  
-  [data-theme="dark"] {
     --gamer-border: #ffffff;
     --gamer-text-secondary: #ffffff;
   }

@@ -6,12 +6,14 @@ import { GamerLibrary } from './pages/GamerLibrary';
 import { Statistics } from './pages/Statistics';
 import { Settings } from './pages/Settings';
 import { PlatformView } from './pages/PlatformView';
+import { GameDetails } from './pages/GameDetails';
 import { useTheme } from './hooks/useTheme';
 import { storageUtils } from './utils/storage';
 import { mockGames, mockStats } from './data/mockData';
 
 function App() {
   const [activeTab, setActiveTab] = useState('library');
+  const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
   const [navCollapsed, setNavCollapsed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { themeMode, actualTheme } = useTheme();
@@ -56,6 +58,16 @@ function App() {
     duration: 0.4
   };
 
+  const handleGameSelect = (gameId: string) => {
+    setSelectedGameId(gameId);
+    setActiveTab('game-details');
+  };
+
+  const handleBackToLibrary = () => {
+    setSelectedGameId(null);
+    setActiveTab('library');
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
@@ -78,11 +90,17 @@ function App() {
       case 'dashboard':
         return <Dashboard />;
       case 'library':
-        return <GamerLibrary />;
+        return <GamerLibrary onGameSelect={handleGameSelect} />;
       case 'stats':
         return <Statistics />;
       case 'settings':
-        return <Settings theme={actualTheme} onToggleTheme={() => {}} />;
+        return <Settings />;
+      case 'game-details':
+        return selectedGameId ? (
+          <GameDetails gameId={selectedGameId} onBack={handleBackToLibrary} />
+        ) : (
+          <GamerLibrary onGameSelect={handleGameSelect} />
+        );
       case 'steam':
       case 'epic':
       case 'gog':
@@ -90,7 +108,7 @@ function App() {
       case 'uplay':
         return <PlatformView platform={activeTab} />;
       default:
-        return <GamerLibrary />;
+        return <GamerLibrary onGameSelect={handleGameSelect} />;
     }
   };
 
@@ -101,12 +119,13 @@ function App() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onToggleCollapse={() => setNavCollapsed(!navCollapsed)}
+        onGameSelect={handleGameSelect}
       />
       
       <main className="flex-1 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab}
+            key={activeTab + (selectedGameId || '')}
             initial="initial"
             animate="in"
             exit="out"

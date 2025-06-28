@@ -11,6 +11,7 @@ interface GameCardProps {
   onLaunch?: (game: EnhancedGame) => void;
   onInstall?: (game: EnhancedGame) => void;
   onUninstall?: (game: EnhancedGame) => void;
+  onClick?: (game: EnhancedGame) => void;
 }
 
 export const GameCard: React.FC<GameCardProps> = ({
@@ -19,7 +20,8 @@ export const GameCard: React.FC<GameCardProps> = ({
   viewMode = 'grid',
   onLaunch,
   onInstall,
-  onUninstall
+  onUninstall,
+  onClick
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -63,15 +65,19 @@ export const GameCard: React.FC<GameCardProps> = ({
     }
   };
 
+  const handleCardClick = () => {
+    onClick?.(game);
+  };
+
   if (viewMode === 'list') {
     return (
       <motion.div
         ref={ref}
-        className="gamer-card gamer-card-interactive p-4 mb-3"
+        className="gamer-list-card"
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        whileHover={{ scale: 1.01 }}
+        onClick={handleCardClick}
       >
         <div className="flex items-center space-x-4">
           {/* Game Cover */}
@@ -98,14 +104,19 @@ export const GameCard: React.FC<GameCardProps> = ({
           {/* Game Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-1">
-              <h3 className="font-semibold text-on-surface truncate">{game.name}</h3>
-              <div className="flex items-center space-x-1 text-xs text-on-surface-variant">
+              <h3 className="font-semibold text-white truncate">{game.name}</h3>
+              <div className="flex items-center space-x-1 text-xs text-gray-400">
                 {getPlatformIcon(game.platform)}
                 <span className="capitalize">{game.platform}</span>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4 text-sm text-on-surface-variant">
+            <div className="flex items-center space-x-4 text-sm text-gray-400">
+              <div className="flex items-center space-x-1">
+                <Calendar size={14} />
+                <span>{formatDate(game.releaseDate)}</span>
+              </div>
+              
               {game.playtime > 0 && (
                 <div className="flex items-center space-x-1">
                   <Clock size={14} />
@@ -115,22 +126,7 @@ export const GameCard: React.FC<GameCardProps> = ({
               
               {game.lastPlayed && (
                 <div className="flex items-center space-x-1">
-                  <Calendar size={14} />
-                  <span>{formatDate(game.lastPlayed)}</span>
-                </div>
-              )}
-              
-              {game.fileSize && (
-                <div className="flex items-center space-x-1">
-                  <HardDrive size={14} />
-                  <span>{formatFileSize(game.fileSize)}</span>
-                </div>
-              )}
-              
-              {game.userRating && (
-                <div className="flex items-center space-x-1">
-                  <Star size={14} />
-                  <span>{game.userRating.toFixed(1)}</span>
+                  <span>Last played: {formatDate(game.lastPlayed)}</span>
                 </div>
               )}
             </div>
@@ -138,7 +134,7 @@ export const GameCard: React.FC<GameCardProps> = ({
             {/* Download Progress */}
             {game.downloading && game.downloadProgress !== undefined && (
               <div className="mt-2">
-                <div className="flex items-center justify-between text-xs text-on-surface-variant mb-1">
+                <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
                   <span>Downloading...</span>
                   <span>{game.downloadProgress}%</span>
                 </div>
@@ -193,6 +189,7 @@ export const GameCard: React.FC<GameCardProps> = ({
       transition={{ duration: 0.4, ease: "easeOut" }}
       whileHover={{ scale: 1.05, y: -8 }}
       whileTap={{ scale: 0.98 }}
+      onClick={handleCardClick}
     >
       {/* Game Cover Image */}
       <div className="w-full h-full relative">
@@ -223,7 +220,7 @@ export const GameCard: React.FC<GameCardProps> = ({
           <div className="gamer-blur-light px-2 py-1 rounded-full">
             <div className="flex items-center space-x-1">
               {getPlatformIcon(game.platform)}
-              <span className="text-xs font-medium uppercase tracking-wide capitalize">
+              <span className="text-xs font-medium uppercase tracking-wide capitalize text-white">
                 {game.platform}
               </span>
             </div>
@@ -245,7 +242,7 @@ export const GameCard: React.FC<GameCardProps> = ({
             <div className="gamer-blur-medium px-2 py-1 rounded-full">
               <div className="flex items-center space-x-1">
                 <Download size={12} />
-                <span className="text-xs font-medium">{game.downloadProgress}%</span>
+                <span className="text-xs font-medium text-white">{game.downloadProgress}%</span>
               </div>
             </div>
           </div>
@@ -330,6 +327,11 @@ export const GameCard: React.FC<GameCardProps> = ({
             )}
           </div>
         </div>
+      </div>
+      
+      {/* Game Title Below Card */}
+      <div className="gamer-game-title">
+        {game.name}
       </div>
     </motion.div>
   );

@@ -1,13 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Home, Gamepad2, BarChart3, Settings, Monitor, Smartphone, HardDrive, Zap, Moon, Sun, Laptop } from 'lucide-react';
-import { useTheme } from '../../hooks/useTheme';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Home, Gamepad2, BarChart3, Settings, Monitor, Smartphone, HardDrive, Zap, ChevronDown, ChevronRight } from 'lucide-react';
+import { getAllDemoGames } from '../../data/demoGames';
 
 interface NavigationRailProps {
   collapsed: boolean;
   activeTab: string;
   onTabChange: (tab: string) => void;
   onToggleCollapse: () => void;
+  onGameSelect?: (gameId: string) => void;
 }
 
 const navigationItems = [
@@ -18,51 +19,44 @@ const navigationItems = [
 ];
 
 const platformItems = [
-  { id: 'steam', label: 'Steam', icon: Monitor },
-  { id: 'epic', label: 'Epic Games', icon: Zap },
-  { id: 'gog', label: 'GOG', icon: Smartphone },
-  { id: 'origin', label: 'Origin', icon: HardDrive },
-  { id: 'uplay', label: 'Ubisoft', icon: Gamepad2 }
+  { id: 'steam', label: 'Steam', icon: Monitor, color: '#1b2838' },
+  { id: 'epic', label: 'Epic Games', icon: Zap, color: '#0078f2' },
+  { id: 'gog', label: 'GOG', icon: Smartphone, color: '#86328a' },
+  { id: 'origin', label: 'Origin', icon: HardDrive, color: '#f56500' },
+  { id: 'uplay', label: 'Ubisoft', icon: Gamepad2, color: '#0082c9' }
 ];
 
 export const NavigationRail: React.FC<NavigationRailProps> = ({
   collapsed,
   activeTab,
   onTabChange,
-  onToggleCollapse
+  onToggleCollapse,
+  onGameSelect
 }) => {
-  const { themeMode, toggleTheme } = useTheme();
+  const [expandedPlatforms, setExpandedPlatforms] = useState<string[]>(['steam', 'epic']);
+  const allGames = getAllDemoGames();
 
-  const getThemeIcon = () => {
-    switch (themeMode) {
-      case 'light':
-        return <Sun size={16} />;
-      case 'dark':
-        return <Moon size={16} />;
-      case 'system':
-        return <Laptop size={16} />;
-      default:
-        return <Sun size={16} />;
-    }
+  const togglePlatform = (platformId: string) => {
+    setExpandedPlatforms(prev => 
+      prev.includes(platformId) 
+        ? prev.filter(id => id !== platformId)
+        : [...prev, platformId]
+    );
   };
 
-  const getThemeLabel = () => {
-    switch (themeMode) {
-      case 'light':
-        return 'Light';
-      case 'dark':
-        return 'Dark';
-      case 'system':
-        return 'System';
-      default:
-        return 'Light';
-    }
+  const getGamesByPlatform = (platform: string) => {
+    return allGames.filter(game => game.platform === platform).slice(0, 8); // Limit to 8 games per platform
+  };
+
+  const handleGameClick = (gameId: string) => {
+    onGameSelect?.(gameId);
+    onTabChange('game-details');
   };
 
   return (
     <motion.div
       className="gamer-nav-rail h-full flex flex-col gamer-blur-medium"
-      animate={{ width: collapsed ? 80 : 280 }}
+      animate={{ width: collapsed ? 80 : 320 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       {/* Header */}
@@ -133,39 +127,76 @@ export const NavigationRail: React.FC<NavigationRailProps> = ({
           )}
           
           <div className="space-y-1 mt-2">
-            {platformItems.map((item) => (
-              <NavigationItem
-                key={item.id}
-                {...item}
-                active={activeTab === item.id}
-                collapsed={collapsed}
-                onClick={() => onTabChange(item.id)}
-              />
-            ))}
+            {platformItems.map((platform) => {
+              const platformGames = getGamesByPlatform(platform.id);
+              const isExpanded = expandedPlatforms.includes(platform.id);
+              
+              return (
+                <div key={platform.id} className="gamer-platform-section">
+                  <div
+                    className="gamer-platform-header"
+                    onClick={() => {
+                      if (!collapsed) {
+                        togglePlatform(platform.id);
+                      } else {
+                        onTabChange(platform.id);
+                      }
+                    }}
+                  >
+                    <div className="flex items-center">
+                      <platform.icon 
+                        size={16} 
+                        className="mr-3 flex-shrink-0" 
+                        style={{ color: platform.color }}
+                      />
+                      {!collapsed && (
+                        <span className="font-medium truncate">{platform.label}</span>
+                      )}
+                    </div>
+                    {!collapsed && platformGames.length > 0 && (
+                      <motion.div
+                        animate={{ rotate: isExpanded ? 90 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ChevronRight size={14} />
+                      </motion.div>
+                    )}
+                  </div>
+                  
+                  {!collapsed && (
+                    <AnimatePresence>
+                      {isExpanded && platformGames.length > 0 && (
+                        <motion.div
+                          className="gamer-platform-games"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {platformGames.map((game) => (
+                            <div
+                              key={game.id}
+                              className="gamer-platform-game"
+                              onClick={() => handleGameClick(game.id)}
+                            >
+                              <div className="w-4 h-4 rounded bg-gray-600 mr-2 flex-shrink-0" />
+                              <span className="truncate">{game.name}</span>
+                            </div>
+                          ))}
+                          {platformGames.length === 8 && (
+                            <div className="gamer-platform-game text-gray-500">
+                              <span className="text-xs">+ more games...</span>
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
-      </div>
-
-      {/* Theme Toggle */}
-      <div className="p-4 border-t border-gray-700/50">
-        <button
-          onClick={toggleTheme}
-          className={`w-full flex items-center px-4 py-3 rounded-full transition-all duration-200 hover:bg-gray-700/50 text-gray-300 hover:text-white`}
-        >
-          <div className={`${collapsed ? 'mx-auto' : 'mr-3'} flex-shrink-0`}>
-            {getThemeIcon()}
-          </div>
-          {!collapsed && (
-            <motion.span
-              className="font-medium truncate"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
-            >
-              {getThemeLabel()} Theme
-            </motion.span>
-          )}
-        </button>
       </div>
     </motion.div>
   );

@@ -7,7 +7,11 @@ import { steamApiService } from '../services/steamApi';
 import { getAllDemoGames, getDemoGamesByPlatform } from '../data/demoGames';
 import { EnhancedGame, LibraryFilter, LibraryViewMode } from '../types/steam';
 
-export const GamerLibrary: React.FC = () => {
+interface GamerLibraryProps {
+  onGameSelect?: (gameId: string) => void;
+}
+
+export const GamerLibrary: React.FC<GamerLibraryProps> = ({ onGameSelect }) => {
   const [games, setGames] = useState<EnhancedGame[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isConfigured, setIsConfigured] = useState(false);
@@ -180,6 +184,10 @@ export const GamerLibrary: React.FC = () => {
     ));
   };
 
+  const handleGameClick = (game: EnhancedGame) => {
+    onGameSelect?.(game.id);
+  };
+
   if (!isConfigured && games.length === 0) {
     return (
       <SteamApiConfigComponent 
@@ -213,6 +221,7 @@ export const GamerLibrary: React.FC = () => {
             onGameLaunch={handleGameLaunch}
             onGameInstall={handleGameInstall}
             onGameUninstall={handleGameUninstall}
+            onGameClick={handleGameClick}
             isLoading={isLoading}
           />
         </div>
