@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavigationRail } from './components/Navigation/NavigationRail';
 import { Dashboard } from './pages/Dashboard';
-import { Library } from './pages/Library';
+import { GamerLibrary } from './pages/GamerLibrary';
 import { Statistics } from './pages/Statistics';
 import { Settings } from './pages/Settings';
 import { PlatformView } from './pages/PlatformView';
@@ -12,10 +11,10 @@ import { storageUtils } from './utils/storage';
 import { mockGames, mockStats } from './data/mockData';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('library');
   const [navCollapsed, setNavCollapsed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { theme, toggleTheme } = useTheme();
+  const { themeMode, actualTheme } = useTheme();
 
   useEffect(() => {
     // Initialize app data
@@ -59,16 +58,16 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <h1 className="text-2xl font-bold text-primary mb-2">GameLib</h1>
-          <p className="text-on-surface-variant">Loading your game library...</p>
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <h1 className="text-3xl font-bold gamer-text-gradient mb-2">GameLib Pro</h1>
+          <p className="text-gray-400">Loading your ultimate gaming experience...</p>
         </motion.div>
       </div>
     );
@@ -79,22 +78,24 @@ function App() {
       case 'dashboard':
         return <Dashboard />;
       case 'library':
-        return <Library />;
+        return <GamerLibrary />;
       case 'stats':
         return <Statistics />;
       case 'settings':
-        return <Settings theme={theme} onToggleTheme={toggleTheme} />;
+        return <Settings theme={actualTheme} onToggleTheme={() => {}} />;
       case 'steam':
       case 'epic':
       case 'gog':
+      case 'origin':
+      case 'uplay':
         return <PlatformView platform={activeTab} />;
       default:
-        return <Dashboard />;
+        return <GamerLibrary />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-gray-900 flex">
       <NavigationRail
         collapsed={navCollapsed}
         activeTab={activeTab}

@@ -2,3 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 @import './styles/material-theme.css';
+@import './styles/gamer-theme.css';
+
+/* Global CSS Custom Properties for Tailwind */
+@layer base {
+  :root {
+    --color-primary: 0 212 255;
+    --color-secondary: 255 107 53;
+    --color-accent: 124 58 237;
+    --color-success: 16 185 129;
+    --color-warning: 245 158 11;
+    --color-error: 239 68 68;
+  }
+}
+
+/* Custom Tailwind Components */
+@layer components {
+  .text-on-surface {
+    color: var(--gamer-text-primary);
+  }
+  
+  .text-on-surface-variant {
+    color: var(--gamer-text-secondary);
+  }
+  
+  .surface-container {
+    background-color: var(--gamer-bg-elevated);
+  }
+  
+  .surface-container-high {
+    background-color: var(--gamer-bg-secondary);
+  }
+  
+  .primary {
+    background-color: var(--gamer-primary);
+    color: var(--gamer-text-inverse);
+  }
+  
+  .primary-container {
+    background: linear-gradient(135deg, var(--gamer-primary), var(--gamer-primary-dark));
+    color: var(--gamer-text-inverse);
+  }
+  
+  .elevation-1 {
+    box-shadow: var(--gamer-shadow-sm);
+  }
+  
+  .elevation-2 {
+    box-shadow: var(--gamer-shadow-md);
+  }
+  
+  .elevation-3 {
+    box-shadow: var(--gamer-shadow-lg);
+  }
+  
+  .elevation-4 {
+    box-shadow: var(--gamer-shadow-xl);
+  }
+  
+  .blur-overlay {
+    backdrop-filter: var(--gamer-blur-medium);
+    -webkit-backdrop-filter: var(--gamer-blur-medium);
+    background-color: var(--gamer-bg-overlay);
+  }
+}
+
+/* Gamepad icon fix */
+.gamepad-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
