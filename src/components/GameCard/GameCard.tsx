@@ -104,14 +104,14 @@ export const GameCard: React.FC<GameCardProps> = ({
           {/* Game Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-1">
-              <h3 className="font-semibold text-white truncate">{game.name}</h3>
-              <div className="flex items-center space-x-1 text-xs text-gray-400">
+              <h3 className="font-semibold text-on-surface truncate">{game.name}</h3>
+              <div className="flex items-center space-x-1 text-xs text-on-surface-variant">
                 {getPlatformIcon(game.platform)}
                 <span className="capitalize">{game.platform}</span>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4 text-sm text-gray-400">
+            <div className="flex items-center space-x-4 text-sm text-on-surface-variant">
               <div className="flex items-center space-x-1">
                 <Calendar size={14} />
                 <span>{formatDate(game.releaseDate)}</span>
@@ -134,7 +134,7 @@ export const GameCard: React.FC<GameCardProps> = ({
             {/* Download Progress */}
             {game.downloading && game.downloadProgress !== undefined && (
               <div className="mt-2">
-                <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+                <div className="flex items-center justify-between text-xs text-on-surface-variant mb-1">
                   <span>Downloading...</span>
                   <span>{game.downloadProgress}%</span>
                 </div>
@@ -220,7 +220,7 @@ export const GameCard: React.FC<GameCardProps> = ({
           <div className="gamer-blur-light px-2 py-1 rounded-full">
             <div className="flex items-center space-x-1">
               {getPlatformIcon(game.platform)}
-              <span className="text-xs font-medium uppercase tracking-wide capitalize text-white">
+              <span className="text-xs font-medium uppercase tracking-wide capitalize text-on-surface">
                 {game.platform}
               </span>
             </div>
@@ -242,7 +242,7 @@ export const GameCard: React.FC<GameCardProps> = ({
             <div className="gamer-blur-medium px-2 py-1 rounded-full">
               <div className="flex items-center space-x-1">
                 <Download size={12} />
-                <span className="text-xs font-medium text-white">{game.downloadProgress}%</span>
+                <span className="text-xs font-medium text-on-surface">{game.downloadProgress}%</span>
               </div>
             </div>
           </div>

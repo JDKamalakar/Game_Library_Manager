@@ -42,7 +42,7 @@ export const Settings: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-white mb-8">Settings</h1>
+          <h1 className="text-3xl font-bold text-on-surface mb-8">Settings</h1>
         </motion.div>
 
         <div className="space-y-6">
@@ -53,12 +53,12 @@ export const Settings: React.FC = () => {
             transition={{ delay: 0.1, duration: 0.5 }}
           >
             <Card>
-              <h2 className="text-lg font-semibold text-white mb-4">Appearance</h2>
+              <h2 className="text-lg font-semibold text-on-surface mb-4">Appearance</h2>
               
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-medium text-white">Theme</h3>
-                  <p className="text-sm text-gray-400">
+                  <h3 className="font-medium text-on-surface">Theme</h3>
+                  <p className="text-sm text-on-surface-variant">
                     Choose between light, dark, and system themes
                   </p>
                 </div>
@@ -81,7 +81,7 @@ export const Settings: React.FC = () => {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <Card>
-              <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+              <h2 className="text-lg font-semibold text-on-surface mb-4 flex items-center">
                 <Shield size={20} className="mr-2 text-primary" />
                 Privacy & Security
               </h2>
@@ -89,8 +89,8 @@ export const Settings: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-white">Encrypt Local Data</h3>
-                    <p className="text-sm text-gray-400">
+                    <h3 className="font-medium text-on-surface">Encrypt Local Data</h3>
+                    <p className="text-sm text-on-surface-variant">
                       Encrypt sensitive data stored locally
                     </p>
                   </div>
@@ -101,8 +101,8 @@ export const Settings: React.FC = () => {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-white">Auto-lock Credentials</h3>
-                    <p className="text-sm text-gray-400">
+                    <h3 className="font-medium text-on-surface">Auto-lock Credentials</h3>
+                    <p className="text-sm text-on-surface-variant">
                       Automatically secure platform credentials after inactivity
                     </p>
                   </div>
@@ -121,7 +121,7 @@ export const Settings: React.FC = () => {
             transition={{ delay: 0.3, duration: 0.5 }}
           >
             <Card>
-              <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+              <h2 className="text-lg font-semibold text-on-surface mb-4 flex items-center">
                 <Database size={20} className="mr-2 text-primary" />
                 Data Management
               </h2>
@@ -129,8 +129,8 @@ export const Settings: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-white">Offline Mode</h3>
-                    <p className="text-sm text-gray-400">
+                    <h3 className="font-medium text-on-surface">Offline Mode</h3>
+                    <p className="text-sm text-on-surface-variant">
                       Enable offline access to your game library
                     </p>
                   </div>
@@ -141,8 +141,8 @@ export const Settings: React.FC = () => {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-white">Auto-sync</h3>
-                    <p className="text-sm text-gray-400">
+                    <h3 className="font-medium text-on-surface">Auto-sync</h3>
+                    <p className="text-sm text-on-surface-variant">
                       Automatically sync library data across devices
                     </p>
                   </div>
@@ -167,7 +167,7 @@ export const Settings: React.FC = () => {
             transition={{ delay: 0.4, duration: 0.5 }}
           >
             <Card>
-              <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+              <h2 className="text-lg font-semibold text-on-surface mb-4 flex items-center">
                 <Bell size={20} className="mr-2 text-primary" />
                 Notifications
               </h2>
@@ -175,8 +175,8 @@ export const Settings: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-white">Game Updates</h3>
-                    <p className="text-sm text-gray-400">
+                    <h3 className="font-medium text-on-surface">Game Updates</h3>
+                    <p className="text-sm text-on-surface-variant">
                       Notify when games have updates available
                     </p>
                   </div>
@@ -187,8 +187,8 @@ export const Settings: React.FC = () => {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-white">New Achievements</h3>
-                    <p className="text-sm text-gray-400">
+                    <h3 className="font-medium text-on-surface">New Achievements</h3>
+                    <p className="text-sm text-on-surface-variant">
                       Show notifications for unlocked achievements
                     </p>
                   </div>
